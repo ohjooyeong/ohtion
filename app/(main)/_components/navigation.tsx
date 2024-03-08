@@ -10,6 +10,7 @@ import {
   useState,
 } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
+import { UserItem } from './user-item';
 
 export const Navigation = () => {
   const pathname = usePathname();
@@ -64,7 +65,7 @@ export const Navigation = () => {
   const resetWidth = () => {
     if (sidebarRef.current && navbarRef.current) {
       setIsCollapsed(false);
-      setIsResetting(false);
+      setIsResetting(true);
 
       sidebarRef.current.style.width = isMobile
         ? '100%'
@@ -123,16 +124,17 @@ export const Navigation = () => {
           onClick={collapse}
           role="button"
           className={cn(
-            `h-6 w-6 text-muted-foreground rounded-smhover:bg-neutral-300
-            dark:hover:bg-neutral-600 absolute top-3 right-2 opacity-0
-            group-hover/sidebar:opacity-100 transition`,
+            `h-6 w-6 text-muted-foreground rounded-sm
+            hover:bg-neutral-300 dark:hover:bg-neutral-600 absolute
+            top-3 right-2 opacity-0 group-hover/sidebar:opacity-100
+            transition`,
             isMobile && 'opacity-100',
           )}
         >
           <ChevronsLeft className="h-6 w-6" />
         </div>
         <div>
-          <p>Action items</p>
+          <UserItem />
         </div>
         <div className="mt-4">
           <p>Documents</p>
@@ -148,7 +150,7 @@ export const Navigation = () => {
       <div
         ref={navbarRef}
         className={cn(
-          'absolute top-0 z-[99999] left-60 w-[calc(100% - 240px)]',
+          'absolute top-0 z-[99999] left-60 w-[calc(100%-240px)]',
           isResetting &&
             'transition-all ease-in-out duration-300',
           isMobile && 'left-0 w-full',

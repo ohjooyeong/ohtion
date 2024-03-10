@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import {
   ChevronsLeft,
   MenuIcon,
+  Plus,
   PlusCircle,
   Search,
   Settings,
@@ -161,24 +162,29 @@ export const Navigation = () => {
         <div>
           <UserItem />
           <Item
-            label="Search"
+            label="검색"
             icon={Search}
             isSearch
             onClick={() => {}}
           />
           <Item
-            label="Settings"
+            label="설정"
             icon={Settings}
             onClick={() => {}}
           />
           <Item
             onClick={handleCreate}
-            label="New Page"
+            label="새 페이지"
             icon={PlusCircle}
           />
         </div>
         <div className="mt-4">
           <DocumentList />
+          <Item
+            onClick={handleCreate}
+            label="페이지 추가"
+            icon={Plus}
+          />
         </div>
         <div
           onMouseDown={handleMouseDown}

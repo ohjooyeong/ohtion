@@ -70,7 +70,7 @@ export const DocumentList = ({
           level === 0 && 'hidden',
         )}
       >
-        No pages inside
+        내부 페이지 없음
       </p>
       {documents.map((document) => (
         <div key={document._id}>

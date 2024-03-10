@@ -1,15 +1,25 @@
 'use client';
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Skeleton } from '@/components/ui/skeleton';
 import { api } from '@/convex/_generated/api';
 import { Id } from '@/convex/_generated/dataModel';
-import { cn } from '@/lib/utils';
+import { cn, getOS } from '@/lib/utils';
+import { useUser } from '@clerk/clerk-react';
 import { useMutation } from 'convex/react';
 import {
   ChevronDown,
   ChevronRight,
   LucideIcon,
+  MoreHorizontal,
   Plus,
+  Trash,
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
@@ -39,8 +49,25 @@ export const Item = ({
   level = 0,
   onExpand,
 }: ItemProps) => {
+  const { user } = useUser();
   const router = useRouter();
   const create = useMutation(api.documents.create);
+  const archive = useMutation(api.documents.archive);
+
+  const isWindow = getOS() === 'WINDOW';
+
+  const onArchive = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+  ) => {
+    if (!id) return;
+    const promise = archive({ id });
+
+    toast.promise(promise, {
+      loading: '휴지통으로 이동중입니다',
+      success: '휴지통으로 노트가 이동됐습니다.',
+      error: '휴지통으로 이동하는 데 실패했습니다.',
+    });
+  };
 
   const handleExpand = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -115,11 +142,44 @@ export const Item = ({
             items-center gap-1 rounded border bg-muted px-1.5 font-mono
             text-[10px] font-medium text-muted-foreground opacity-100"
         >
-          <span className="text-xs">CMD</span>K
+          <span className="text-xs">
+            {isWindow ? `Ctrl` : `Cmd`}
+          </span>
+          K
         </kbd>
       )}
       {!!id && (
         <div className="ml-auto flex items-center gap-x-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              onClick={(e) => e.stopPropagation()}
+              asChild
+            >
+              <div
+                role="button"
+                className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm
+                  hover:bg-neutral-300 dark:hover:bg-neutral-600"
+              >
+                <MoreHorizontal className="h-4 w-4 text-muted-foreground" />
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              className="w-60"
+              align="start"
+              side="right"
+              forceMount
+              onClick={(e) => e.stopPropagation()}
+            >
+              <DropdownMenuItem onClick={onArchive}>
+                <Trash className="h-4 w-4 mr-2" />
+                삭제하기
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <div className="text-xs text-muted-foreground p-2">
+                {user?.fullName}에 의해 최근 수정됨
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <div
             className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm
               hover:bg-neutral-300 dark:bg-neutral-600"

@@ -1,14 +1,17 @@
-"use client";
+'use client';
 
-import { useScrollTop } from "@/hooks/use-scroll-top";
-import { cn } from "@/lib/utils";
-import Logo from "./logo";
-import { ModeToggle } from "@/components/mode-toggle";
-import { useConvexAuth } from "convex/react";
-import { SignInButton, UserButton } from "@clerk/clerk-react";
-import { Button } from "@/components/ui/button";
-import { Spinner } from "@/components/spinner";
-import Link from "next/link";
+import { useScrollTop } from '@/hooks/use-scroll-top';
+import { cn } from '@/lib/utils';
+import Logo from './logo';
+import { ModeToggle } from '@/components/mode-toggle';
+import { useConvexAuth } from 'convex/react';
+import {
+  SignInButton,
+  UserButton,
+} from '@clerk/clerk-react';
+import { Button } from '@/components/ui/button';
+import { Spinner } from '@/components/spinner';
+import Link from 'next/link';
 
 const Navbar = () => {
   const { isAuthenticated, isLoading } = useConvexAuth();
@@ -17,29 +20,35 @@ const Navbar = () => {
   return (
     <div
       className={cn(
-        "z-50 bg-background dark:bg-[#1f1f1f] fixed top-0 flex items-center w-full p-6",
-        scrolled && "border-b shadow-sm"
+        `z-50 bg-background dark:bg-[#1f1f1f] fixed top-0 flex
+        items-center w-full p-6`,
+        scrolled && 'border-b shadow-sm',
       )}
     >
       <Logo />
-      <div className="md:ml-auto md:justify-end justify-between w-full flex items-center gap-x-2">
+      <div
+        className="md:ml-auto md:justify-end justify-between w-full flex
+          items-center gap-x-2"
+      >
         {isLoading && <Spinner />}
         {!isAuthenticated && !isLoading && (
           <>
             <SignInButton mode="modal">
-              <Button variant={"ghost"} size={"sm"}>
-                Log in
+              <Button variant={'ghost'} size={'sm'}>
+                로그인
               </Button>
             </SignInButton>
             <SignInButton mode="modal">
-              <Button size={"sm"}>Get Ohtion free</Button>
+              <Button size={'sm'}>무료로 시작하기</Button>
             </SignInButton>
           </>
         )}
         {isAuthenticated && !isLoading && (
           <>
-            <Button variant={"ghost"} size={"sm"} asChild>
-              <Link href={"/documents"}>Enter Ohtion</Link>
+            <Button variant={'ghost'} size={'sm'} asChild>
+              <Link href={'/documents'}>
+                Ohtion 시작하기
+              </Link>
             </Button>
             <UserButton afterSignOutUrl="/" />
           </>

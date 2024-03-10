@@ -17,7 +17,7 @@ const DocumentsPage = () => {
     const promise = create({ title: 'Untitled' });
 
     toast.promise(promise, {
-      loading: '새로운 노트를 생성중입니다.',
+      loading: '새로운 노트를 생성중...',
       success: '새로운 노트가 생성되었습니다.',
       error: '새로운 노트를 생성하는데 실패했습니다.',
     });

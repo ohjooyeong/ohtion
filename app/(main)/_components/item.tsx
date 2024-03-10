@@ -33,7 +33,7 @@ interface ItemProps {
   level?: number;
   onExpand?: () => void;
   label: string;
-  onClick: () => void;
+  onClick?: () => void;
   icon: LucideIcon;
 }
 
@@ -63,7 +63,7 @@ export const Item = ({
     const promise = archive({ id });
 
     toast.promise(promise, {
-      loading: '휴지통으로 이동중입니다',
+      loading: '휴지통으로 이동중...',
       success: '휴지통으로 노트가 이동됐습니다.',
       error: '휴지통으로 이동하는 데 실패했습니다.',
     });
@@ -93,7 +93,7 @@ export const Item = ({
     });
 
     toast.promise(promise, {
-      loading: '새로운 노트를 생성중입니다.',
+      loading: '새로운 노트를 생성중...',
       success: '새로운 노트가 생성되었습니다.',
       error: '새로운 노트를 생성하는데 실패했습니다.',
     });

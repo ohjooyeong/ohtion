@@ -8,6 +8,7 @@ import {
   PlusCircle,
   Search,
   Settings,
+  Trash,
 } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import {
@@ -17,12 +18,19 @@ import {
   useState,
 } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
+
 import { UserItem } from './user-item';
 import { useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { Item } from './item';
 import { toast } from 'sonner';
 import { DocumentList } from './document-list';
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from '@/components/ui/popover';
+import { TrashBox } from './trash-box';
 
 export const Navigation = () => {
   const pathname = usePathname();
@@ -114,7 +122,7 @@ export const Navigation = () => {
     });
 
     toast.promise(promise, {
-      loading: '새로운 노트를 생성중입니다.',
+      loading: '새로운 노트를 생성중...',
       success: '새로운 노트가 생성되었습니다.',
       error: '새로운 노트를 생성하는데 실패했습니다.',
     });
@@ -185,6 +193,17 @@ export const Navigation = () => {
             label="페이지 추가"
             icon={Plus}
           />
+          <Popover>
+            <PopoverTrigger className="w-full mt-4">
+              <Item label="휴지통" icon={Trash} />
+            </PopoverTrigger>
+            <PopoverContent
+              className="p-0 w-72"
+              side={isMobile ? 'bottom' : 'right'}
+            >
+              <TrashBox />
+            </PopoverContent>
+          </Popover>
         </div>
         <div
           onMouseDown={handleMouseDown}

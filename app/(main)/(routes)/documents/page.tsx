@@ -17,9 +17,9 @@ const DocumentsPage = () => {
     const promise = create({ title: 'Untitled' });
 
     toast.promise(promise, {
-      loading: 'Create a new note...',
-      success: 'New note created!',
-      error: 'Failed to create a new note.',
+      loading: '새로운 노트를 생성중입니다.',
+      success: '새로운 노트가 생성되었습니다.',
+      error: '새로운 노트를 생성하는데 실패했습니다.',
     });
   };
 
@@ -40,7 +40,8 @@ const DocumentsPage = () => {
         className="hidden dark:block"
       />
       <h2 className="text-lg font-medium">
-        환영합니다. {user?.firstName}&apos;s Ohtion
+        {user?.firstName}&apos;s Ohtion에 오신 것을
+        환영합니다.
       </h2>
       <Button onClick={onCreate}>
         <PlusCircle className="h-4 w-4 mr-2" />

@@ -31,8 +31,10 @@ import {
   PopoverContent,
 } from '@/components/ui/popover';
 import { TrashBox } from './trash-box';
+import { useSearch } from '@/hooks/use-search';
 
 export const Navigation = () => {
+  const search = useSearch();
   const pathname = usePathname();
   const isMobile = useMediaQuery('(max-width: 768px)');
 
@@ -173,7 +175,7 @@ export const Navigation = () => {
             label="검색"
             icon={Search}
             isSearch
-            onClick={() => {}}
+            onClick={search.onOpen}
           />
           <Item
             label="설정"

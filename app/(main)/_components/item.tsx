@@ -60,7 +60,9 @@ export const Item = ({
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => {
     if (!id) return;
-    const promise = archive({ id });
+    const promise = archive({ id }).then(() =>
+      router.push('/documents'),
+    );
 
     toast.promise(promise, {
       loading: '휴지통으로 이동중...',
@@ -89,7 +91,7 @@ export const Item = ({
       if (!expanded) {
         onExpand?.();
       }
-      // router.push(`/documents/${documentId}`);
+      router.push(`/documents/${documentId}`);
     });
 
     toast.promise(promise, {

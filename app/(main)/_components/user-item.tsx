@@ -62,7 +62,7 @@ export const UserItem = () => {
         <DropdownMenuItem className="cursor-pointer">
           <SignOutButton>
             <div className="w-full cursor-pointer text-muted-foreground">
-              Log out
+              로그아웃
             </div>
           </SignOutButton>
         </DropdownMenuItem>

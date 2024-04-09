@@ -1,13 +1,17 @@
 import { Toaster } from 'sonner';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Noto_Sans_KR } from 'next/font/google';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import './globals.css';
 import { ConvexClientProvider } from '@/components/providers/convex-provider';
 import { ModalProvider } from '@/components/providers/modal-provider';
 import { EdgeStoreProvider } from '@/lib/edgestore';
 
-const inter = Inter({ subsets: ['latin'] });
+const notoSansKr = Noto_Sans_KR({
+  subsets: ['latin'],
+  weight: ['100', '300', '400', '500', '700', '900'],
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'Ohtion',
@@ -22,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={inter.className}
+        className={notoSansKr.className}
         suppressHydrationWarning
       >
         <ConvexClientProvider>
